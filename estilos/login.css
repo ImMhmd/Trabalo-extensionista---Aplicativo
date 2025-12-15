@@ -1,3 +1,10 @@
+:root {
+      --bg-color: #ffffff;
+      --text-color: #1a1a1a;
+      --card-bg: #ffffff;
+      --accent: #4e8cff;
+    }
+
 * {
     margin: 0;
     padding: 0;
@@ -25,7 +32,7 @@ body {
 
 h1 {
     font-size: 2.4rem;
-    color: #007a06;
+    color: var(--accent);
     margin-bottom: 8px;
 }
 
