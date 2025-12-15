@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memed - Cuidador</title>
+    <link rel="stylesheet" href="estilos/cuidador.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-texto">
+            <h1>Área do Cuidador</h1>
+            <p>Monitoramento do idoso</p>
+        </div>
+
+        <button class="theme-toggle" id="toggleTheme">🌙 Modo escuro</button>
+    </header>
+
+    <main class="container">
+        
+        <!-- Dados do idoso -->
+        <section class="card">
+            <h2>👴 Idoso Acompanhado</h2>
+            <p><strong>Nome:</strong> Maria de Lourde</p>
+            <p><strong>Idade:</strong> 64 anos</p>
+        </section>
+
+        <!-- Status dos medicamentos -->
+        <section class="card">
+            <h2>💊 Medicamentos de Hoje</h2>
+
+            <div class="med ok">
+                <span>Remédio Dipirona - 08:00</span>
+                <span class="status">✔ Tomado</span>
+            </div>
+
+            <div class="med atraso">
+                <span>Remédio Dorflex - 12:00</span>
+                <span class="status">⏰ Atrasado</span>
+            </div>
+
+            <div class="med nao">
+                <span> Analgésicos   - 18:00</span>
+                <span class="status">✖ Não tomado</span>
+            </div>
+        </section>
+
+        <!-- Ações -->
+        <section class="card">
+            <h2>📢 Ações</h2>
+            <button>Enviar lembrete ao idoso</button>
+            <button class="secundario">Ver histórico</button>
+        </section>
+
+    </main>
+
+    <script src="scripts/cuidador.js"></script>
+</body>
+</html>

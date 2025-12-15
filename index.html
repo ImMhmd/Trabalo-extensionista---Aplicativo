@@ -3,32 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memed</title>
-    <link rel="stylesheet" media="(max-width: 900px)" href="celular.css" />
+    <title>Memed - Acesso</title>
+    <link rel="stylesheet" media="(max-width: 900px)" href="estilos/login.css">
 </head>
 <body>
-    
-    <header>
-        <h1>Memed 💊</h1>
-        <button class="theme-toggle" id="toggleTheme">🌙 Modo escuro</button>
-    </header>
+       <div class="container">
+        <h1>Memed</h1>
+        <p class="subtitle">
+            Escolha como deseja acessar
+        </p>
 
-  <main>
-    <div class="card">
-      <h2>Adicionar lembrete</h2>
-      <div style="display:flex; margin-top:0.5rem;">
-        <input type="text" id="remedio" placeholder="Nome do remédio">
-        <input type="time" id="horario">
-        <button class="add-btn" id="addBtn">Adicionar</button>
-      </div>
+        <div class="cards">
+            <a href="idoso.html" class="card idoso">
+                <span class="icon">👴</span>
+                <h2>Sou Idoso</h2>
+                <p>Acessar lembretes de medicamentos</p>
+            </a>
+
+            <a href="cuidador.html" class="card cuidador">
+                <span class="icon">🧑‍⚕️</span>
+                <h2>Sou Cuidador</h2>
+                <p>Acompanhar o uso dos remédios</p>
+            </a>
+        </div>
     </div>
 
-    <div class="card">
-      <h2>Lembretes</h2>
-      <ul id="lista"></ul>
-    </div>
-  </main>
-
-    <script src="config.js"></script>
+    <script src="scripts/login.js"></script>
 </body>
 </html>
