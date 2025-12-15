@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memed</title>
+    <link rel="stylesheet" media="(max-width: 900px)" href="celular.css" />
+</head>
+<body>
+    
+    <header>
+        <h1>Memed 💊</h1>
+        <button class="theme-toggle" id="toggleTheme">🌙 Modo escuro</button>
+    </header>
+
+  <main>
+    <div class="card">
+      <h2>Adicionar lembrete</h2>
+      <div style="display:flex; margin-top:0.5rem;">
+        <input type="text" id="remedio" placeholder="Nome do remédio">
+        <input type="time" id="horario">
+        <button class="add-btn" id="addBtn">Adicionar</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Lembretes</h2>
+      <ul id="lista"></ul>
+    </div>
+  </main>
+
+    <script src="config.js"></script>
+</body>
+</html>
