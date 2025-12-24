@@ -190,6 +190,11 @@ body.dark .theme-btn {
   border: 1px solid var(--accent);
 }
 
+#listaMedicamentos-vazia{
+  background-color: white;
+  border: none;
+}
+
 #listaMedicamentos p{
   padding-top: 2.5px;
   font-size: 18px

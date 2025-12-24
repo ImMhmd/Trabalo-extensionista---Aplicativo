@@ -29,6 +29,7 @@
       padding: 30px 20px 10px 20px;
       background-color: var(--card-bg);
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      width: 95vw;
     }
 
     header h1 {
@@ -38,7 +39,10 @@
       font-weight: bolder;
     }
     
-
+    #itens{
+      display:flex; 
+      margin-top:0.5rem;
+    }
 
 
     .perfil h2{
@@ -83,7 +87,7 @@
     }
 
     .card input{
-      font-size: 20px;
+      font-size: 15px;
     }
 
     .card:hover {
