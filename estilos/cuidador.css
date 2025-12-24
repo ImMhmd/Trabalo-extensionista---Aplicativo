@@ -82,7 +82,7 @@ body.dark .theme-btn {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 20px;
+  padding: 30px 20px;
   background: white;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   
@@ -101,7 +101,8 @@ body.dark .theme-btn {
 }
 
 .header button{
-    width: 200px;
+    width: 205px;
+    height: 43px;
 }
 .header-texto p {
   margin: 0;
@@ -110,7 +111,6 @@ body.dark .theme-btn {
   padding-top: 5px;
 }
 
-/* botão NÃO pode ter width 100% */
 .theme-toggle {
   padding: 8px 14px;
   border-radius: 10px;
@@ -160,6 +160,19 @@ body.dark .theme-btn {
     font-size: 1.3rem;
 }
 
+.card img {
+  width: 100px;
+  border-radius: 50%;
+  height: 100px;
+}
+
+#foto img {
+  margin-bottom: 10px;
+}
+
+#foto-nome h2{
+  margin-left: 15px;
+}
 /* Medicamentos */
 .med {
     display: flex;
