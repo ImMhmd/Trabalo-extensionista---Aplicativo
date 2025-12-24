@@ -161,9 +161,9 @@ body.dark .theme-btn {
 }
 
 .card img {
-  width: 100px;
+  width: 125px;
   border-radius: 50%;
-  height: 100px;
+  height: 125px;
 }
 
 #foto img {
@@ -181,6 +181,28 @@ body.dark .theme-btn {
     border-radius: 10px;
     margin-bottom: 10px;
     font-size: 1rem;
+}
+
+#listaMedicamentos {
+  background-color: #b1e2ff1e;
+  border-radius: 10px;
+  padding: 10px;
+  border: 1px solid var(--accent);
+}
+
+#listaMedicamentos p{
+  padding-top: 2.5px;
+  font-size: 18px
+}
+
+#listaMedicamentos:hover{
+  transform: scale(1.02);
+  transition: 0.3s;
+}
+
+hr {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .med.ok {
