@@ -1,254 +1,229 @@
 :root {
-      --bg-color: #ffffff;
-      --text-color: #1a1a1a;
-      --card-bg: #ffffff;
-      --accent: #4e8cff;
-    }
+  --bg-color: #f2f2f2;
+  --bg-dark: #121212;
+  --card-bg: #ffffff;
+  --card-dark: #1e1e1e;
+  --text-color: #333;
+  --text-dark: #f1f1f1;
+  --accent: #4e8cff;
+}
 
+/* RESET */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
+/* BODY */
 body {
-    background: #f2f2f2;
-    color: #333;
-    transition: 0.3s;
+  background: var(--bg-color);
+  color: var(--text-color);
+  transition: 0.3s;
 }
-
 
 body.dark {
-  background: #121212;
-  color: #f1f1f1;
+  background: var(--bg-dark);
+  color: var(--text-dark);
 }
 
-body.dark header {
-  background: #1e1e1e;
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 20px;
+  background: var(--card-bg);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+body.dark .header {
+  background: var(--card-dark);
+}
+
+.header-texto h1 {
+  font-size: 1.8rem;
+  color: var(--accent);
+}
+
+.header-texto p {
+  font-size: 1.1rem;
+  opacity: 0.8;
+  margin-top: 4px;
+}
+
+/* BOTÃO TEMA */
+.theme-toggle {
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 2px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.theme-toggle {
+  width: auto;
+  height: 50px;           
+  max-width: 350px;      
+  padding: 6px 12px;     
+  font-size: 14px;
+  white-space: nowrap;  
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  background: var(--accent);
+  color: white;
+}
+
+/* CONTAINER */
+.container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* CARD */
+.card {
+  background: var(--card-bg);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 body.dark .card {
-  background: #1e1e1e;
+  background: var(--card-dark);
   box-shadow: none;
 }
 
-body.dark .med.ok {
+.card h2 {
+  margin-bottom: 12px;
+  font-size: 1.3rem;
+}
+
+/* FOTO */
+#foto img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+/* LISTA MEDICAMENTOS */
+#listaMedicamentos {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ITEM MEDICAMENTO */
+.med {
+  user-select: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer
+}
+
+.med span{
+  pointer-events: none;
+}
+
+.med:hover {
+  transform: scale(1.01);
+  transition: 0.2s;
+}
+
+.med.selecionado {
+  outline: 3px solid #4e8cff;
+}
+
+
+.med.selecionado {
+  outline: 3px solid #4e8cff;
+}
+
+/* STATUS */
+.med.tomado {
+  background: #E8F5E9;
+  color: #2E7D32;
+}
+
+.med.pendente {
+  background: #FFF3E0;
+  color: #EF6C00;
+}
+
+.med.atrasado {
+  background: #FDECEA;
+  color: #C62828;
+}
+
+/* DARK STATUS */
+body.dark .med.tomado {
   background: #1b3a24;
   color: #9be7b2;
 }
 
-body.dark .med.atraso {
+body.dark .med.pendente {
   background: #3a2a1b;
   color: #ffcc80;
 }
 
-body.dark .med.nao {
+body.dark .med.atrasado {
   background: #3a1b1b;
   color: #ff9e9e;
 }
 
-body.dark button {
-  background: #388e3c;
-}
-
-body.dark button.secundario {
-  background: #455a64;
-}
-
-body.dark .theme-toggle {
-  border-color: #90caf9;
-  color: #90caf9;
-}
-
-.theme-btn {
-  position: fixed;
-  top: 15px;
-  right: 15px;
-  border: none;
-  background: #ddd;
-  padding: 10px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 18px;
-}
-
-body.dark .theme-btn {
-  background: #444;
-  color: white;
-}
-
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 30px 20px;
-  background: white;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  
-}
-
-.header-texto {
-  display: flex;
-  flex-direction: column;
-}
-
-.header-texto h1 {
-  margin: 0;
-  font-size: 1.8rem;
-  color: var(--accent);
-  
-}
-
-.header button{
-    width: 205px;
-    height: 43px;
-}
-.header-texto p {
-  margin: 0;
-  font-size: 1.1rem;
-  opacity: 0.8;
-  padding-top: 5px;
-}
-
-.theme-toggle {
-  padding: 8px 14px;
-  border-radius: 10px;
-  border: 2px solid #4e8cff;
-  background: transparent;
-  color: #4e8cff;
-  font-weight: bold;
-  cursor: pointer;
-  white-space: nowrap;
-}
-
-.theme-toggle {
-      background: none;
-      border: 2px solid var(--accent);
-      color: var(--accent);
-      padding: 0.4rem 0.8rem;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: 0.3s;
-    }
-
-.theme-toggle:hover {
-      background-color: var(--accent);
-      color: white;
-    }
-
-
-
-.container {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-/* Cards */
-.card {
-    background: white;
-    border-radius: 14px;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-.card h2 {
-    margin-bottom: 12px;
-    font-size: 1.3rem;
-}
-
-.card img {
-  width: 125px;
-  border-radius: 50%;
-  height: 125px;
-}
-
-#foto img {
-  margin-bottom: 10px;
-}
-
-#foto-nome h2{
-  margin-left: 15px;
-}
-/* Medicamentos */
-.med {
-    display: flex;
-    justify-content: space-between;
-    padding: 12px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    font-size: 1rem;
-}
-
-#listaMedicamentos {
-  background-color: #b1e2ff1e;
-  border-radius: 10px;
-  padding: 10px;
-  border: 1px solid var(--accent);
-}
-
-#listaMedicamentos-vazia{
-  background-color: white;
-  border: none;
-}
-
-#listaMedicamentos p{
-  padding-top: 2.5px;
-  font-size: 18px
-}
-
-#listaMedicamentos:hover{
-  transform: scale(1.02);
-  transition: 0.3s;
-}
-
-hr {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.med.ok {
-    background: #E8F5E9;
-    color: #2E7D32;
-}
-
-.med.atraso {
-    background: #FFF3E0;
-    color: #EF6C00;
-}
-
-.med.nao {
-    background: #FDECEA;
-    color: #C62828;
-}
-
 .status {
-    font-weight: bold;
+  font-weight: bold;
 }
 
-/* Botões */
+/* BOTÕES */
 button {
-    width: 100%;
-    padding: 14px;
-    margin-top: 10px;
-    border: none;
-    border-radius: 10px;
-    font-size: 1rem;
-    cursor: pointer;
-    background: #4CAF50;
-    color: white;
-}
-
-button.secundario {
-    background: #607D8B;
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  background: #4CAF50;
+  color: white;
+  transition: 0.2s;
 }
 
 button:hover {
-    opacity: 0.9;
+  opacity: 0.9;
 }
+
+button.secundario {
+  background: #607D8B;
+}
+
+/* RESPONSIVO */
+@media (max-width: 600px) {
+  .header {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+
+  .theme-toggle {
+    width: 100%;
+  }
+}
+
+
+
 
 /* Acessibilidade */
 @media (max-width: 480px) {
