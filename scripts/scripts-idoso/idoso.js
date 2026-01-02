@@ -1,6 +1,11 @@
 import { db } from "../scripts-database/firebase.js";
-import { ref, push, onValue, remove, update } 
-from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
+import {
+  ref,
+  push,
+  onValue,
+  remove,
+  update
+} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
 
 const remedioInput = document.getElementById("remedio");
 const horarioInput = document.getElementById("horario");
@@ -8,8 +13,9 @@ const addBtn = document.getElementById("addBtn");
 const lista = document.getElementById("lista");
 
 const lembretesRef = ref(db, "lembretes");
+const alertasRef = ref(db, "alertas");
 
-/* ADICIONAR */
+/* ADICIONAR REMÉDIO */
 addBtn.addEventListener("click", () => {
   const remedio = remedioInput.value.trim();
   const horario = horarioInput.value;
@@ -20,12 +26,10 @@ addBtn.addEventListener("click", () => {
   }
 
   push(lembretesRef, {
-  remedio,
-  horario,
-  tomado: false,
-  lembreteEnviado: false
-});
-
+    remedio,
+    horario,
+    tomado: false
+  });
 
   remedioInput.value = "";
   horarioInput.value = "";
@@ -63,6 +67,39 @@ onValue(lembretesRef, (snapshot) => {
     lista.appendChild(li);
   });
 });
+
+/* RECEBER ALERTA DO CUIDADOR */
+onValue(alertasRef, (snapshot) => {
+  snapshot.forEach((child) => {
+    const alerta = child.val();
+
+    if (!alerta.visto) {
+      const overlay = document.getElementById("alertaOverlay");
+      const texto = document.getElementById("alertaTexto");
+      const btnOk = document.getElementById("btnOk");
+
+      texto.innerHTML = `
+        <strong>Remédio:</strong> ${alerta.remedio}<br>
+        <strong>Horário:</strong> ${alerta.horario}
+      `;
+
+      overlay.classList.remove("hidden");
+
+      btnOk.onclick = () => {
+        overlay.classList.add("hidden");
+      };
+
+
+      update(ref(db, `alertas/${child.key}`), {
+        visto: true
+      });
+    }
+  });
+});
+
+
+
+
 
 
 
