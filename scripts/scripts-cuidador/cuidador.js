@@ -5,34 +5,75 @@ import {
   push
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
 
-const container = document.getElementById("listaMedicamentos");
+/* ================= ELEMENTOS ================= */
+const listaMedicamentos = document.getElementById("listaMedicamentos");
 const btnLembrete = document.getElementById("btnLembrete");
+const btnHistorico = document.getElementById("btnHistorico");
+const cardAviso = document.getElementById("cardAviso");
 
+const cardHistorico = document.getElementById("cardHistorico");
+const btnFecharHistorico = document.getElementById("btnFecharHistorico");
+const filtroDias = document.getElementById("filtroDias");
+const listaHistorico = document.getElementById("listaHistorico");
+
+/* ================= FIREBASE ================= */
 const lembretesRef = ref(db, "lembretes");
 const alertasRef = ref(db, "alertas");
 
-let selecionadoId = null;
-let dadosRemedios = {};
+/* ================= ESTADO ================= */
+let medicamentoSelecionado = null;
+let dadosMedicamentos = {};
 
-/* LISTAR MEDICAMENTOS */
+/* ================= UTIL ================= */
+function mostrarAviso(texto, tipo = "sucesso") {
+  cardAviso.style.display = "block";
+  cardAviso.innerHTML = texto;
+
+  if (tipo === "aviso") {
+    cardAviso.style.background = "#FFF3E0";
+    cardAviso.style.color = "#EF6C00";
+  } else {
+    cardAviso.style.background = "#E8F5E9";
+    cardAviso.style.color = "#2E7D32";
+  }
+
+  setTimeout(() => {
+    cardAviso.style.display = "none";
+  }, 3000);
+}
+
+function dentroDoPeriodo(timestamp, dias) {
+  if (!timestamp) return false;
+
+  if (dias === 0) {
+    const hoje = new Date().toDateString();
+    return new Date(timestamp).toDateString() === hoje;
+  }
+
+  const limite = Date.now() - dias * 24 * 60 * 60 * 1000;
+  return timestamp >= limite;
+}
+
+/* ================= LISTAR MEDICAMENTOS ================= */
 onValue(lembretesRef, (snapshot) => {
-  container.innerHTML = "";
-  dadosRemedios = {};
-  selecionadoId = null;
+  listaMedicamentos.innerHTML = "";
+  dadosMedicamentos = {};
+  medicamentoSelecionado = null;
 
   snapshot.forEach((child) => {
-    const { remedio, horario, tomado } = child.val();
-    const id = child.key;
+    const dados = child.val();
+    if (!dados?.remedio || !dados?.horario) return;
 
-    dadosRemedios[id] = { remedio, horario };
+    const id = child.key;
+    dadosMedicamentos[id] = dados;
 
     const div = document.createElement("div");
-    div.className = `med ${tomado ? "tomado" : "pendente"}`;
+    div.className = `med ${dados.tomado ? "tomado" : "pendente"}`;
 
     div.innerHTML = `
-      <span>${remedio} - ${horario}</span>
+      <span>${dados.remedio} - ${dados.horario}</span>
       <span class="status">
-        ${tomado ? "✔ Tomado" : "⏰ Pendente"}
+        ${dados.tomado ? "✔ Tomado" : "⏰ Pendente"}
       </span>
     `;
 
@@ -42,54 +83,73 @@ onValue(lembretesRef, (snapshot) => {
       );
 
       div.classList.add("selecionado");
-      selecionadoId = id;
+      medicamentoSelecionado = id;
     });
 
-    container.appendChild(div);
+    listaMedicamentos.appendChild(div);
   });
 });
 
-/* ENVIAR LEMBRETE */
+/* ================= ENVIAR LEMBRETE ================= */
 btnLembrete.addEventListener("click", () => {
-  const cardAviso = document.getElementById("cardAviso");
-
-  // LIMPA CLASSES
-  cardAviso.classList.remove("sucesso", "aviso");
-
-  if (!selecionadoId) {
-    cardAviso.classList.add("aviso");
-    cardAviso.innerHTML = `
-      ⚠️ Selecione um medicamento primeiro
-    `;
-    cardAviso.style.display = "block";
-
-    setTimeout(() => {
-      cardAviso.style.display = "none";
-    }, 3000);
-
+  if (!medicamentoSelecionado) {
+    mostrarAviso("⚠️ Selecione um medicamento primeiro", "aviso");
     return;
   }
 
-  const dados = dadosRemedios[selecionadoId];
+  const dados = dadosMedicamentos[medicamentoSelecionado];
 
   push(alertasRef, {
     remedio: dados.remedio,
     horario: dados.horario,
-    visto: false,
-    criadoEm: Date.now()
+    criadoEm: Date.now(),
+    visto: false
   });
 
-  cardAviso.classList.add("sucesso");
-  cardAviso.innerHTML = `
-    ✅ Lembrete enviado com sucesso!
-  `;
-  cardAviso.style.display = "block";
-
-  setTimeout(() => {
-    cardAviso.style.display = "none";
-  }, 3000);
+  mostrarAviso(`🔔 Lembrete enviado: ${dados.remedio}`);
 });
 
+/* ================= HISTÓRICO ================= */
+btnHistorico.addEventListener("click", () => {
+  cardHistorico.style.display = "block";
+  carregarHistorico();
+});
+
+btnFecharHistorico.addEventListener("click", () => {
+  cardHistorico.style.display = "none";
+});
+
+filtroDias.addEventListener("change", carregarHistorico);
+
+function carregarHistorico() {
+  const dias = Number(filtroDias.value);
+  listaHistorico.innerHTML = "";
+
+  onValue(alertasRef, (snapshot) => {
+    listaHistorico.innerHTML = "";
+
+    snapshot.forEach((child) => {
+      const alerta = child.val();
+      if (!alerta?.remedio || !alerta?.criadoEm) return;
+      if (!dentroDoPeriodo(alerta.criadoEm, dias)) return;
+
+      const data = new Date(alerta.criadoEm).toLocaleString("pt-BR");
+
+      const div = document.createElement("div");
+      div.className = "med tomado";
+      div.innerHTML = `
+        <span>${alerta.remedio} - ${alerta.horario}</span>
+        <span class="status">${data}</span>
+      `;
+
+      listaHistorico.appendChild(div);
+    });
+
+    if (!listaHistorico.innerHTML) {
+      listaHistorico.innerHTML = "<p>Nenhum registro encontrado.</p>";
+    }
+  }, { onlyOnce: true });
+}
 
 
 

@@ -40,18 +40,36 @@
         <!-- Ações -->
         <section class="card">
             <h2>📢 Ações</h2>
+
             <button id="btnLembrete">Enviar lembrete ao idoso</button>
-            <button class="secundario">Ver histórico</button>
+            <button class="secundario" id="btnHistorico">Ver histórico</button>
 
             <!-- Card de aviso -->
             <div id="cardAviso"></div>
         </section>
 
-        <!-- Card flutuante de lembrete -->
-        <div id="lembreteCard" class="lembrete-card">
-            <h3>🔔 Lembrete enviado</h3>
-            <p id="lembreteTexto"></p>
-        </div>
+        <!-- Histórico de lembretes (fora do card de ações) -->
+        <section class="card" id="cardHistorico" style="display:none;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h2>📜 Histórico de Lembretes</h2>
+                <button id="btnFecharHistorico" class="secundario" style="width:auto;">
+                    ✖
+                </button>
+            </div>
+
+            <div style="margin:10px 0;">
+                <label>Filtrar por:</label>
+                <select id="filtroDias">
+                    <option value="0">Hoje</option>
+                    <option value="3">Últimos 3 dias</option>
+                    <option value="5">Últimos 5 dias</option>
+                    <option value="7">Últimos 7 dias</option>
+                </select>
+            </div>
+
+            <div id="listaHistorico"></div>
+        </section>
+
 
     </main>
 

@@ -22,7 +22,10 @@
       <h2>Adicionar lembrete</h2>
       <div id="itens">
         <input type="text" id="remedio" placeholder="Nome do remédio">
-        <input type="time" id="horario" placeholder="Horário">
+        <div class="campo">
+          <label for="horario">⏰ Horário do remédio</label>
+          <input type="time" id="horario" required>
+        </div>
         <button class="add-btn" id="addBtn">Adicionar</button>
       </div>
     </div>
