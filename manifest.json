@@ -1,0 +1,31 @@
+{
+  "name": "Memed - Lembrete de Medicamentos",
+  "short_name": "Memed",
+  "id": "/",
+  "description": "Aplicativo para ajudar idosos a lembrar horários de medicamentos e permitir que cuidadores acompanhem o histórico de uso de forma simples e segura.",
+  "start_url": "/Trabalo-extensionista---Aplicativo/",
+  "scope": "/Trabalo-extensionista---Aplicativo/",
+  "display": "standalone",
+  "orientation": "any",
+  "lang": "pt-BR",
+  "background_color": "#121212",
+  "theme_color": "#4e8cff",
+  "icons": [
+    {
+      "src": "favicons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "favicons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "favicons/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
