@@ -68,35 +68,43 @@ onValue(lembretesRef, (snapshot) => {
   });
 });
 
-/* RECEBER ALERTA DO CUIDADOR */
+/* RECEBER ALERTA DO CUIDADOR + NOTIFICAÇÃO */
 onValue(alertasRef, (snapshot) => {
   snapshot.forEach((child) => {
     const alerta = child.val();
 
-    if (!alerta.visto) {
-      const overlay = document.getElementById("alertaOverlay");
-      const texto = document.getElementById("alertaTexto");
-      const btnOk = document.getElementById("btnOk");
+    if (alerta.visto) return;
 
-      texto.innerHTML = `
-        <strong>Remédio:</strong> ${alerta.remedio}<br>
-        <strong>Horário:</strong> ${alerta.horario}
-      `;
+    // ===== CARD NA TELA =====
+    const overlay = document.getElementById("alertaOverlay");
+    const texto = document.getElementById("alertaTexto");
+    const btnOk = document.getElementById("btnOk");
 
-      overlay.classList.remove("hidden");
+    texto.innerHTML = `
+      <strong>Remédio:</strong> ${alerta.remedio}<br>
+      <strong>Horário:</strong> ${alerta.horario}
+    `;
 
-      btnOk.onclick = () => {
-        overlay.classList.add("hidden");
-      };
+    overlay.classList.remove("hidden");
 
+    // ===== NOTIFICAÇÃO DO CELULAR =====
+    if ("Notification" in window && Notification.permission === "granted") {
+      new Notification("💊 Hora do remédio", {
+        body: `${alerta.remedio} às ${alerta.horario}`,
+        icon: "/icons/icon-192.png",
+        vibrate: [200, 100, 200]
+      });
+    }
+
+    btnOk.onclick = () => {
+      overlay.classList.add("hidden");
 
       update(ref(db, `alertas/${child.key}`), {
         visto: true
       });
-    }
+    };
   });
 });
-
 
 
 
